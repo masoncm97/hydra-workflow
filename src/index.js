@@ -1,4 +1,5 @@
 import Hydra from 'hydra-synth';
+import image from '../assets/image.png';
 import movie from '../assets/IMG_3037.mp4';
 
 var hydra = new Hydra({
