@@ -1,0 +1,8 @@
+* { 
+	box-sizing: border-box;
+}
+
+body, ul, ol, dl {
+	margin: 0;
+    overflow: hidden;
+}

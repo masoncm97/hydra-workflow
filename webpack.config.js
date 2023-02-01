@@ -25,6 +25,10 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
                 test: /\.mp4$/,
                 use: [
                     {

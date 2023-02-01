@@ -1,9 +1,13 @@
 import Hydra from 'hydra-synth';
 import image from '../assets/image.png';
 import movie from '../assets/IMG_3037.mp4';
+import '../styles.css';
 
 var hydra = new Hydra({
-  detectAudio: false
+  canvas: document.getElementById("hydra-canvas"),
+  detectAudio: false,
+  width: 1280, 
+  height: 720
 })
 
 // Image
@@ -13,5 +17,5 @@ var hydra = new Hydra({
 
 // Video 
 
-// s0.initVideo(movie)
-// src(s0).modulate(noise(4)).out(o0)
+s0.initVideo(movie)
+src(s0).modulate(noise(4)).out(o0)
