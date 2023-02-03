@@ -1,78 +1,49 @@
 import image from '../assets/image.png'
 import movie from '../assets/IMG_3037.mp4'
-import { Hydra, generators } from 'hydra-ts';
-import REGL from 'regl';
-import '../styles.css';
+import { Hydra, generators } from 'hydra-ts'
+import REGL from 'regl'
+import '../styles.css'
 import React from 'react'
-import * as ReactDOMClient from 'react-dom/client';
+import * as ReactDOMClient from 'react-dom/client'
+import Canvas from './canvas'
 
-function Canvas() {
+const regl = REGL()
+const hydra = new Hydra({
+  regl,
+  width: 1080,
+  height: 1080,
+});
 
-  const regl = REGL();
-  const hydra = new Hydra({
-    regl,
-    width: 1080,
-    height: 1080,
-  });
-  
-  const { src, osc, gradient, shape, voronoi, noise } = generators;
-  const { sources, outputs } = hydra;
-  
-  const [s0, s1, s2, s3] = sources;
-  const [o0, o1, o2, o3] = outputs;
-  const { hush, loop, render } = hydra;
+const { src, osc, gradient, shape, voronoi, noise } = generators
+const { sources, outputs } = hydra
 
-  loop.start();
+const [s0, s1, s2, s3] = sources
+const [o0, o1, o2, o3] = outputs
+const { hush, loop, render } = hydra
 
+function Image() {
   s0.initImage(image)
   osc(6).modulate(src(s0),1).out(o0)
-
-  return (
-  <div
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-    }}
-  >
-  </div>
-  )
 }
+
+function Video() {
+  s0.initVideo(movie)
+  src(s0).modulate(noise(3)).out(o0)
+}
+
 
 function Performance() {
   return (
     <div>
-      <Canvas></Canvas>
-      <Canvas></Canvas>
+      <Canvas creation={Image} loop={loop}></Canvas>
+      <Canvas creation={Video} loop={loop}></Canvas>
     </div>
   )
 }
 
 
-const root = ReactDOMClient.createRoot(document.getElementById('app'));
-root.render(<Performance />);
-// const regl = REGL()
-
-// const hydra = new Hydra({
-//   regl,
-//   width: 1080,
-//   height: 1080,
-// });
-
-// const { src, osc, gradient, shape, voronoi, noise } = generators;
-// const { sources, outputs } = hydra;
-
-// const [s0, s1, s2, s3] = sources;
-// const [o0, o1, o2, o3] = outputs;
-// const { hush, loop, render } = hydra;
-
-// loop.start();
-
-// var hydra = new Hydra({
-//   canvas: document.getElementById("hydra-canvas"),
-//   detectAudio: false
-// })
+const root = ReactDOMClient.createRoot(document.getElementById('app'))
+root.render(<Performance />)
 
 // Image
 
