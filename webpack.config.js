@@ -17,8 +17,10 @@ module.exports = {
         rules: [
             {
                 test: /\.(js)$/,
-                exclude: /node_modules/,
                 use: "babel-loader",
+                resolve: {
+                    fullySpecified: false,
+                  }
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
