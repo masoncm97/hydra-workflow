@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack') 
 
 module.exports = {
     mode: 'development',
@@ -16,11 +17,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.(js|jsx)$/,
                 use: "babel-loader",
                 resolve: {
                     fullySpecified: false,
-                  }
+                }
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -43,5 +44,8 @@ module.exports = {
                 ]
             }
         ],
+    },
+    resolve: {
+        extensions: ['*', '.js', '.jsx'],
     },
 };

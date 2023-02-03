@@ -4,24 +4,70 @@ import { Hydra, generators } from 'hydra-ts';
 import REGL from 'regl';
 import '../styles.css';
 import React from 'react'
-import ReactDOM from 'react-dom'
+import * as ReactDOMClient from 'react-dom/client';
 
-const regl = REGL()
+function Canvas() {
 
-const hydra = new Hydra({
-  regl,
-  width: 1080,
-  height: 1080,
-});
+  const regl = REGL();
+  const hydra = new Hydra({
+    regl,
+    width: 1080,
+    height: 1080,
+  });
+  
+  const { src, osc, gradient, shape, voronoi, noise } = generators;
+  const { sources, outputs } = hydra;
+  
+  const [s0, s1, s2, s3] = sources;
+  const [o0, o1, o2, o3] = outputs;
+  const { hush, loop, render } = hydra;
 
-const { src, osc, gradient, shape, voronoi, noise } = generators;
-const { sources, outputs } = hydra;
+  loop.start();
 
-const [s0, s1, s2, s3] = sources;
-const [o0, o1, o2, o3] = outputs;
-const { hush, loop, render } = hydra;
+  s0.initImage(image)
+  osc(6).modulate(src(s0),1).out(o0)
 
-loop.start();
+  return (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+    }}
+  >
+  </div>
+  )
+}
+
+function Performance() {
+  return (
+    <div>
+      <Canvas></Canvas>
+      <Canvas></Canvas>
+    </div>
+  )
+}
+
+
+const root = ReactDOMClient.createRoot(document.getElementById('app'));
+root.render(<Performance />);
+// const regl = REGL()
+
+// const hydra = new Hydra({
+//   regl,
+//   width: 1080,
+//   height: 1080,
+// });
+
+// const { src, osc, gradient, shape, voronoi, noise } = generators;
+// const { sources, outputs } = hydra;
+
+// const [s0, s1, s2, s3] = sources;
+// const [o0, o1, o2, o3] = outputs;
+// const { hush, loop, render } = hydra;
+
+// loop.start();
 
 // var hydra = new Hydra({
 //   canvas: document.getElementById("hydra-canvas"),
@@ -30,8 +76,8 @@ loop.start();
 
 // Image
 
-s0.initImage(image)
-osc(6).modulate(src(s0),1).out(o0)
+// s0.initImage(image)
+// osc(6).modulate(src(s0),1).out(o0)
 
 // Video 
 // s0.initVideo(movie)
