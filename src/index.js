@@ -1,49 +1,30 @@
-import image from '../assets/image.png'
-import movie from '../assets/IMG_3037.mp4'
-import { Hydra, generators } from 'hydra-ts'
-import REGL from 'regl'
-import '../styles.css'
 import React from 'react'
-import * as ReactDOMClient from 'react-dom/client'
-import Canvas from './canvas'
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
+import App from './app';
+import Performance from './performance'
 
-const regl = REGL()
-const hydra = new Hydra({
-  regl,
-  width: 1080,
-  height: 1080,
-});
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <App/>
+    ),
+  },
+  {
+    path: "performance",
+    element: <Performance/>
+  },
+]);
 
-const { src, osc, gradient, shape, voronoi, noise } = generators
-const { sources, outputs } = hydra
-
-const [s0, s1, s2, s3] = sources
-const [o0, o1, o2, o3] = outputs
-const { hush, loop, render } = hydra
-
-function Image() {
-  s0.initImage(image)
-  osc(6).modulate(src(s0),1).out(o0)
-}
-
-function Video() {
-  s0.initVideo(movie)
-  src(s0).modulate(noise(3)).out(o0)
-}
-
-
-function Performance() {
-  return (
-    <div>
-      <Canvas creation={Image} loop={loop}></Canvas>
-      <Canvas creation={Video} loop={loop}></Canvas>
-    </div>
-  )
-}
-
-
-const root = ReactDOMClient.createRoot(document.getElementById('app'))
-root.render(<Performance />)
+createRoot(document.getElementById("app")).render(
+  <RouterProvider router={router} />
+);
 
 // Image
 
@@ -56,7 +37,7 @@ root.render(<Performance />)
 
 // osc( [1,10,50,100,250,500] ).out(o0)
 // function r(min=0,max=1) { return Math.random()*(max-min)+min; }
- 
+
 // shape(4,1,0).repeat(20,10)
 // 	.out()
 

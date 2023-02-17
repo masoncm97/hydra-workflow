@@ -9,10 +9,12 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         static: './dist',
+        historyApiFallback: true,
     },
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.bundle.js",
+        publicPath: '/',
     },
     module: {
         rules: [
